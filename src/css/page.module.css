@@ -1,0 +1,73 @@
+.main {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
+
+/* header */
+.header {
+  padding: 20px;
+  box-shadow: 0px 4px 7px 0px #ebebeb;
+}
+
+:global(.darkMode) .header {
+  box-shadow: 0px 4px 7px 0px rgba(0,0,0,0.1);
+}
+
+.headerContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.pageTitle {
+  font-size: 20px;
+}
+
+.colorModeIcon {
+  font-size: 20px;
+  display: inline-block;
+  transform: translate(-10px, 4px)  rotate(-45deg);
+}
+
+.colorModeBtn {
+  cursor: pointer;
+}
+
+/* searchSelect */
+.searchSelectBox {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* footer */
+.footer {
+  text-align: center;
+  font-size: 12px;
+}
+
+/* Enable hover only on non-touch devices */
+@media (hover: hover) and (pointer: fine) {
+  
+}
+
+@media (prefers-reduced-motion) {
+  
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+}
+
+/* Tablet and Smaller Desktop */
+@media (min-width: 701px) and (max-width: 1120px) {
+
+}
