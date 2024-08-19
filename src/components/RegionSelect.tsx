@@ -1,5 +1,5 @@
 'use client';
-import searchSelectStyles from "@/css/searchSelect.module.css";
+import styles from "@/css/searchSelect.module.css";
 
 interface RegionSelectProps {
   onRegionChange: (region: string) => void;
@@ -15,7 +15,7 @@ export const RegionSelect: React.FC<RegionSelectProps> = ({ onRegionChange }) =>
 			<select
 				name="regionSelect"
 				id="regionSelect"
-				className={searchSelectStyles.regionSelect}
+				className={styles.regionSelect}
 				onChange={handleChange}
 			>
 				<option value="all">Filter by Region</option>

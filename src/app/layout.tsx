@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import { Nunito_Sans } from "next/font/google";
 import "@/css/globals.css";
-import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { ReactNode } from "react";
 import { CountryDataProvider } from "@/context/CountryDataContext"; //contextを使って全ページでAPIからのデータを使用可能にする
+import { DarkMode } from "@/components/DarkMode";
 
 const nunitoSans = Nunito_Sans({ subsets: ['latin'], weight: ['300', '600', '800'] }); //Google Fontsの「Nunito Sans」を読み込むための関数らしい
 
@@ -17,10 +16,11 @@ export default function RootLayout({ children }:{ children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={nunitoSans.className}>
-        <Header />
-        <CountryDataProvider>
-          {children}
-        </CountryDataProvider>
+        <DarkMode>
+          <CountryDataProvider>
+            {children}
+          </CountryDataProvider>
+        </DarkMode>
         <Footer />
       </body>
     </html>

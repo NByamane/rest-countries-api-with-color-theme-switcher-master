@@ -2,7 +2,8 @@
 import React from "react";
 import { useCountryData } from "../../../context/CountryDataContext";
 import Image from "next/image";
-import countryDetailStyles from "../../../css/countryDetail.module.css"; //ここ、@で指定できないのと型宣言が見つかりませんというエラーが出ますが原因がわかりません😇反映はされてます
+import styles from "../../../css/countryDetail.module.css";
+import CountryDetailItem from "./CountryDetailItem";
 
 export default function CountryDetail({ params }: { params: { cca3: string } }) {
   const { countryData, loading, error } = useCountryData();
@@ -14,6 +15,11 @@ export default function CountryDetail({ params }: { params: { cca3: string } }) 
   //cca3と一致するデータを探して格納
   const country = countryData.find(countryItem => countryItem.cca3 === cca3);
 
+  //countryがundefinedの場合の早期リターン
+  if(!country){
+    return <div>データが見つかりませんでした。</div>;
+  }
+
   //テスト（後で消す）
   console.log(country.name.nativeName); 
   console.log(country); 
@@ -24,30 +30,30 @@ export default function CountryDetail({ params }: { params: { cca3: string } }) 
   const nativeName = country.name.nativeName[firstLanguageCode]?.common || "Not Found";
 
   //通過の型アサーション
-  const currencyNames = Object.values(country.currencies).map((countryItem) => (countryItem as { name: string; symbol: string }).name);
+  // const currencyNames = Object.values(country.currencies).map((countryItem) => (countryItem as { name: string; symbol: string }).name);
 
   return (
-    <div className={countryDetailStyles.countryDetailContainer}>
+    <div className={styles.countryDetailContainer}>
       <Image
         src={country.flags.svg}
         alt={`${country.name.common} flag`}
-        className={countryDetailStyles.countryFlagImg}
+        className={styles.countryFlagImg}
         width={500}
         height={300}
       />
-      <div className={countryDetailStyles.countryDetailContent}>
-        <h2 className={countryDetailStyles.countryName}>{country.name.common}</h2>
-        <div className={countryDetailStyles.countryData}>
-          <div className={countryDetailStyles.countryDataBox}>
-            <p className={countryDetailStyles.countryDataItem}><span className={countryDetailStyles.countryDataItemTtl}>Native Name:</span> {nativeName}</p>
-            <p className={countryDetailStyles.countryDataItem}><span className={countryDetailStyles.countryDataItemTtl}>Population:</span> {country.population.toLocaleString()}</p>
-            <p className={countryDetailStyles.countryDataItem}><span className={countryDetailStyles.countryDataItemTtl}>Region:</span> {country.region}</p>
-            <p className={countryDetailStyles.countryDataItem}><span className={countryDetailStyles.countryDataItemTtl}>Capital:</span> {country.capital}</p>
+      <div className={styles.countryDetailContent}>
+        <h2 className={styles.countryName}>{country.name.common}</h2>
+        <div className={styles.countryData}>
+          <div className={styles.countryDataBox}>
+            <CountryDetailItem title="Native Name" value={nativeName} />
+            <CountryDetailItem title="Population" value={country.population.toLocaleString()} />
+            <CountryDetailItem title="Region" value={country.region} />
+            <CountryDetailItem title="Capital" value={country.capital} />
           </div>
-          <div className={countryDetailStyles.countryDataBox}>
-            <p className={countryDetailStyles.countryDataItem}><span className={countryDetailStyles.countryDataItemTtl}>Top Level Domain:</span> {country.tld}</p>
-            <p className={countryDetailStyles.countryDataItem}><span className={countryDetailStyles.countryDataItemTtl}>Currencies:</span> {currencyNames.join(', ')}</p>
-            <p className={countryDetailStyles.countryDataItem}><span className={countryDetailStyles.countryDataItemTtl}>Languages:</span> {Object.values(country.languages).join(', ')}</p>
+          <div className={styles.countryDataBox}>
+            <CountryDetailItem title="Top Level Domain" value={country.tld} />
+            <CountryDetailItem title="Currencies" value={Object.keys(country.currencies).map(key => country.currencies[key].name).join(', ')} />
+            <CountryDetailItem title="Languages" value={Object.values(country.languages).join(', ')} />
           </div>
         </div>
       </div>

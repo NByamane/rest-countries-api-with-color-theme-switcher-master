@@ -23,8 +23,6 @@ export default function Home() {
     (selectedRegion === 'all' || country.region === selectedRegion) &&
     country.name.common.toLowerCase().includes(searchQuery.toLowerCase())
   );
-  if (loading) { return <div>Loading...</div>; }
-  if (error) { return <div>Error: {error}</div>; }
 
   //Search
   const handleSearchChange = (query: string) => {
@@ -33,11 +31,19 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
+      {/* 常に検索フォームとセレクトボタンは表示 */}
       <div className={styles.searchSelectBox}>
         <Search onSearchSubmit={handleSearchChange} />
         <RegionSelect onRegionChange={handleRegionChange} />
       </div>
-      <CountryCard data={filteredCountries} />
+      {/* エラーの場合はエラーメッセージ表示 */}
+      {error && <div>Error: {error}</div>}
+      {/* 読み込みが終わったらCountryCardを表示 */}
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <CountryCard data={filteredCountries} />
+      )}
     </main>
   );
 }
