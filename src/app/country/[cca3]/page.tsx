@@ -20,10 +20,6 @@ export default function CountryDetail({ params }: { params: { cca3: string } }) 
     return <div>データが見つかりませんでした。</div>;
   }
 
-  //テスト（後で消す）
-  console.log(country.name.nativeName); 
-  console.log(country); 
-
   //最初の言語コードを取得 https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
   const firstLanguageCode = Object.keys(country.languages)[0];
   //nativeNameのなかの最初の言語コードと一致するobjectのcommonを格納。ない場合はNot Foundを入れる。
