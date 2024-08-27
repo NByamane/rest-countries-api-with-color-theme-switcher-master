@@ -44,10 +44,10 @@ export default function CountryDetail({ params }: { params: { cca3: string } }) 
             <CountryDetailItem title="Native Name" value={nativeName} />
             <CountryDetailItem title="Population" value={country.population.toLocaleString()} />
             <CountryDetailItem title="Region" value={country.region} />
-            <CountryDetailItem title="Capital" value={country.capital} />
+            <CountryDetailItem title="Capital" value={Object.values(country.capital).join(', ')} />
           </div>
           <div className={styles.countryDataBox}>
-            <CountryDetailItem title="Top Level Domain" value={country.tld} />
+            <CountryDetailItem title="Top Level Domain" value={Object.values(country.tld).join(', ')} />
             <CountryDetailItem title="Currencies" value={Object.keys(country.currencies).map(key => country.currencies[key].name).join(', ')} />
             <CountryDetailItem title="Languages" value={Object.values(country.languages).join(', ')} />
           </div>
